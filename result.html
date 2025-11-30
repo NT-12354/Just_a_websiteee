@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>BMI Result</title>
+<style>
+body{background:#162447;font-family:Arial;
+height:100vh;display:flex;justify-content:center;
+align-items:center;color:white;margin:0;}
+.box{
+background:white;width:85%;max-width:380px;padding:25px;border-radius:15px;
+color:#222;box-shadow:0 5px 15px rgba(0,0,0,.3);text-align:center;
+}
+button{width:90%;padding:11px;border:none;border-radius:8px;margin-top:12px;
+background:#3498db;color:white;font-size:16px;cursor:pointer}
+button:hover{background:#2980b9}
+#cat{padding:10px;border-radius:20px;margin:10px 0;color:white;}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>Your Result</h1>
+
+<div id="num" style="font-size:33px;font-weight:bold;margin:10px;">--</div>
+<div id="cat">--</div>
+<p id="msg">Loading...</p>
+
+<button onclick="window.location.href='./index.html'">Back</button>
+<button onclick="changeTheme()">Toggle Theme</button>
+
+</div>
+
+
+<script>
+
+function showResult(){
+let bmi=parseFloat(localStorage.getItem("bmi"))
+animNum(bmi)
+
+let c=document.getElementById("cat")
+let m=document.getElementById("msg")
+
+if(bmi<18.5){
+c.textContent="Underweight"
+c.style.background="#3498db"
+m.textContent="Try boosting your meals a bit."
+} else if(bmi<25){
+c.textContent="Normal"
+c.style.background="#2ecc71"
+m.textContent="You're holding a nice balance."
+} else if(bmi<30){
+c.textContent="Overweight"
+c.style.background="#f39c12"
+m.textContent="A few tweaks to the routine can help."
+} else{
+c.textContent="Obese"
+c.style.background="#e74c3c"
+m.textContent="Consider getting advice from a health pro."
+}
+}
+
+function animNum(val){
+let n=0
+let box=document.getElementById("num")
+let t=setInterval(function(){
+if(n>=val){box.textContent=val;clearInterval(t)}
+else{n+=0.17;box.textContent=n.toFixed(1)}
+},28)
+}
+
+function changeTheme(){
+let b=document.body
+if(b.style.background=="white"){
+b.style.background="#162447"
+b.style.color="white"
+}else{
+b.style.background="white"
+b.style.color="black"
+}
+}
+
+showResult()
+
+</script>
+
+</body>
+</html>
